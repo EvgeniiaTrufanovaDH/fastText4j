@@ -321,12 +321,12 @@ public abstract class BaseDictionary implements Cloneable, Closeable {
   protected void computeSubwords(String word, List<Integer> ngrams, List<String> substrings) {
     for(int i = 0; i < word.length(); i++) {
       StringBuilder ngram = new StringBuilder();
-      if (!charMatches(word.charAt(i))) {
+      // if (!charMatches(word.charAt(i))) {
         for (int j = i, n = 1; j < word.length() && n <= args.getMaxn(); n++) {
           ngram.append(word.charAt(j++));
-          while (j < word.length() && charMatches(word.charAt(j))) {
-            ngram.append(word.charAt(j++));
-          }
+          // while (j < word.length() && charMatches(word.charAt(j))) {
+          //   ngram.append(word.charAt(j++));
+          // }
           if (n >= args.getMinn() && !(n == 1 && (i == 0 || j == word.length()))) {
             UnsignedLong h = UnsignedLong.valueOf(hash(ngram.toString()));
             h = h.mod(UnsignedLong.valueOf(args.getBucketNumber()));
@@ -334,7 +334,7 @@ public abstract class BaseDictionary implements Cloneable, Closeable {
             substrings.add(ngram.toString());
           }
         }
-      }
+      // }
     }
   }
 
@@ -356,19 +356,19 @@ public abstract class BaseDictionary implements Cloneable, Closeable {
   protected void computeSubwords(String word, List<Integer> ngrams) {
     for(int i = 0; i < word.length(); i++) {
       StringBuilder ngram = new StringBuilder();
-      if (!charMatches(word.charAt(i))) {
+      // if (!charMatches(word.charAt(i))) {
         for (int j = i, n = 1; j < word.length() && n <= args.getMaxn(); n++) {
           ngram.append(word.charAt(j++));
-          while (j < word.length() && charMatches(word.charAt(j))) {
-            ngram.append(word.charAt(j++));
-          }
+          // while (j < word.length() && charMatches(word.charAt(j))) {
+            // ngram.append(word.charAt(j++));
+          // }
           if (n >= args.getMinn() && !(n == 1 && (i == 0 || j == word.length()))) {
             UnsignedLong h = UnsignedLong.valueOf(hash(ngram.toString()));
             h = h.mod(UnsignedLong.valueOf(args.getBucketNumber()));
             pushHash(ngrams, h.intValue());
           }
         }
-      }
+      // }
     }
   }
 
